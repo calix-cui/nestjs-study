@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nest-frontend</title>
+    <script src="https://unpkg.com/axios@0.24.0/dist/axios.min.js"></script>
+    <!-- <script src="https://unpkg.com/qs@6.10.2/dist/qs.js"></script> -->
+  </head>
+  <body>
+    <input id="fileInput" type="file" multiple />
+
+    <script>
+      // async function urlParam() {
+      //   const res = await axios.get('api/person/1')
+      //   console.log(res);
+      // }
+      // urlParam()
+
+      // async function query() {
+      //   const res = await axios.get('api/person/find', {
+      //     params: {
+      //       name: '崔',
+      //       age: 24
+      //     }
+      //   })
+      //   console.log(res);
+      // }
+      // query()
+
+      // async function formUrlEncoded() {
+      //   const res = await axios.post(
+      //     'api/person',
+      //     Qs.stringify({
+      //       name: '崔',
+      //       age: 24,
+      //     }),
+      //     // {
+      //     //   headers: {
+      //     //     'content-type': 'application/x-www-form-urlencoded',
+      //     //   },
+      //     // },
+      //   );
+      //   console.log(res);
+      // }
+      // formUrlEncoded();
+
+      // async function json() {
+      //   const res = await axios.post('api/person', {
+      //     name: '崔',
+      //     age: 24,
+      //   });
+      //   // post 第二个参数 data 是 object 时，axios 默认传输 json
+      //   console.log(res);
+      // }
+      // json();
+
+      async function hello() {
+        const res = await axios.get('/hello', { params: {name: 'cuixiang'} });
+        // post 第二个参数 data 是 object 时，axios 默认传输 json
+        // console.log(res);
+      }
+      hello();
+
+      const fileInput = document.getElementById('fileInput');
+      async function formData() {
+        const data = new FormData();
+        data.set('name', '崔');
+        data.set('age', 24);
+        data.set('file1', fileInput.files[0]);
+        data.set('file2', fileInput.files[1]);
+
+        const res = await axios.post('api/person/file', data, {
+          header: { 'content-type': 'multipart/form-data' },
+        });
+        // post 第二个参数 data 是 object 时，axios 默认传输 json
+        console.log(res);
+      }
+      fileInput.onchange = formData
+    </script>
+  </body>
+</html>
